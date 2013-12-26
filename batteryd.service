@@ -1,0 +1,11 @@
+[Unit]
+Description=Batteryd - the smallest battery daemon ever
+After=syslog.target 
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/batteryd
+
+[Install]
+WantedBy=multi-user.target
+

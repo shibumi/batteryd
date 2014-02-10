@@ -21,6 +21,8 @@
  * Github: www.github.com/Shibumi
  * GPG: E2C0DC2A
  *
+ * How to compile:
+ * g++ batteryd.cpp -o batteryd $(pkg-config --cflags --libs libnotify)
  *
  */
 
@@ -35,12 +37,13 @@ using namespace std;
 
 
 
-
 //Begin config section feel free to change these values :)
 const int repeater = 60;
 const int high = 15;
 const int low = 10;
 //End config section
+
+
 
 int main(void)
 {

@@ -25,7 +25,7 @@
  */
 
 
-
+#include <libnotify/notify.h>
 #include <cstdlib> 
 #include <fstream> 
 #include <unistd.h>
@@ -38,11 +38,8 @@ using namespace std;
 
 //Begin config section feel free to change these values :)
 const int repeater = 60;
-const string text = "Low Battery'"; // the single quotation mark is important
-const string username = "user"; 
 const int high = 15;
 const int low = 10;
-const string display = "DISPLAY=:0";
 //End config section
 
 int main(void)
@@ -68,13 +65,25 @@ int main(void)
             convert >> icapacity;
             if(icapacity < high && icapacity > low)
             {
-                system( string( display+ " su " + username + " -c" +  " 'notify-send " + text).c_str());
+              if(notify_init("batteryd"))
+              {
+                NotifyNotification *notification = notify_notification_new("Caution!!","Battery is low", NULL);
+                notify_notification_show(notification, NULL);
+                g_object_unref(notification);
+                notify_uninit();
+                }
                 continue;
             }
             else if(icapacity < low)
             {
+              if(notify_init("batteryd"))
+              {
+                NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very low",NULL);
+                notify_notification_show(notification, NULL);
+                g_object_unref(notification);
+                notify_uninit();
+                }
                 system("echo -e \a");
-                system( string( display + " su " + username + " -c" +  " 'notify-send " + text).c_str());
                 continue;
             }
             else

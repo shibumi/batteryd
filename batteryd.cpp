@@ -71,6 +71,7 @@ int main(void)
               if(notify_init("batteryd"))
               {
                 NotifyNotification *notification = notify_notification_new("Caution!!","Battery is low", NULL);
+                notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
                 notify_notification_show(notification, NULL);
                 g_object_unref(notification);
                 notify_uninit();
@@ -82,6 +83,7 @@ int main(void)
               if(notify_init("batteryd"))
               {
                 NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very low",NULL);
+                notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
                 notify_notification_show(notification, NULL);
                 g_object_unref(notification);
                 notify_uninit();

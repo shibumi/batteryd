@@ -41,6 +41,8 @@ using namespace std;
 const int repeater = 60;
 const int high = 15;
 const int low = 10;
+const char* statuspath = "/sys/class/power_supply/BAT0/status";
+const char* capacitypath = "/sys/class/power_supply/BAT0/capacity";
 //End config section
 
 
@@ -56,12 +58,12 @@ int main(void)
 	while(true)
     {
         sleep(repeater);
-        infile1.open("/sys/class/power_supply/BAT0/status");
+        infile1.open(statuspath);
         getline(infile1,status);
         infile1.close();
         if(status.compare("Discharging") == 0)
         {
-            infile2.open("/sys/class/power_supply/BAT0/capacity");
+            infile2.open(capacitypath);
             getline(infile2,scapacity);
             infile2.close();
             stringstream convert(scapacity);

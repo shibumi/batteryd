@@ -4,7 +4,7 @@ After=syslog.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/batteryd
+ExecStart=/usr/bin/batteryd
 
 [Install]
 WantedBy=multi-user.target

@@ -8,7 +8,7 @@ arch=("any")
 url=("https://github.com/shibumi/batteryd")
 license=("GPLv3")
 depends=("libnotify")
-makedepends=("git","gcc")
+makedepends=("git" "gcc")
 source=("git+http://github.com/shibumi/batteryd")
 md5sums=("SKIP")
 

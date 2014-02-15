@@ -3,8 +3,9 @@ Description=Batteryd - the smallest battery daemon ever
 After=syslog.target 
 
 [Service]
+Environment=DISPLAY=%I
 Type=simple
-ExecStart=/usr/bin/batteryd
+ExecStart=/usr/bin/batteryd %I
 
 [Install]
 WantedBy=multi-user.target

@@ -11,6 +11,7 @@ depends=("libnotify")
 makedepends=("git" "gcc")
 source=("git+http://github.com/shibumi/batteryd")
 md5sums=("SKIP")
+install="batteryd.install"
 
 pkgver() {
   cd batteryd
@@ -23,6 +24,8 @@ build() {
 }
 
 package() {
+    
+  mkdir -p "${pkgdir}/etc/systemd/system/" 
   
   install -D -m644 "${srcdir}/batteryd/batteryd.service" \
     "${pkgdir}/lib/systemd/system/batteryd.service"

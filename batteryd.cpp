@@ -24,6 +24,7 @@
  * How to compile:
  * g++ batteryd.cpp -o batteryd $(pkg-config --cflags --libs libnotify)
  *
+ * vim: set ts=2 sts=2 sw=2 et
  */
 
 
@@ -32,10 +33,9 @@
 #include <fstream> 
 #include <unistd.h>
 #include <sstream> 
+#include <iostream>
 
 using namespace std;
-
-
 
 //Begin config section feel free to change these values :)
 const int repeater = 60;
@@ -49,59 +49,59 @@ const char* capacitypath = "/sys/class/power_supply/BAT0/capacity";
 
 int main(void)
 {
-	string scapacity;
-	int icapacity;
-	string status;
-	ifstream infile1;
-	ifstream infile2;
-	
-	while(true)
+  string scapacity;
+  int icapacity;
+  string status;
+  ifstream infile1;
+  ifstream infile2;
+
+  while(true)
+  {
+    sleep(repeater);
+    infile1.open(statuspath);
+    getline(infile1,status);
+    infile1.close();
+    if(status.compare("Discharging") == 0)
     {
-        sleep(repeater);
-        infile1.open(statuspath);
-        getline(infile1,status);
-        infile1.close();
-        if(status.compare("Discharging") == 0)
+      infile2.open(capacitypath);
+      getline(infile2,scapacity);
+      infile2.close();
+      stringstream convert(scapacity);
+      convert >> icapacity;
+      if(icapacity < high && icapacity > low)
+      {
+        if(notify_init("batteryd"))
         {
-            infile2.open(capacitypath);
-            getline(infile2,scapacity);
-            infile2.close();
-            stringstream convert(scapacity);
-            convert >> icapacity;
-            if(icapacity < high && icapacity > low)
-            {
-              if(notify_init("batteryd"))
-              {
-                NotifyNotification *notification = notify_notification_new("Caution!!","Battery is low", NULL);
-                notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
-                notify_notification_show(notification, NULL);
-                g_object_unref(notification);
-                notify_uninit();
-                }
-                continue;
-            }
-            else if(icapacity < low)
-            {
-              if(notify_init("batteryd"))
-              {
-                NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very low",NULL);
-                notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
-                notify_notification_show(notification, NULL);
-                g_object_unref(notification);
-                notify_uninit();
-                }
-                system("echo -e \a");
-                continue;
-            }
-            else
-            {
-                continue;
-            }
+          NotifyNotification *notification = notify_notification_new("Caution!!","Battery is low", NULL);
+          notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
+          notify_notification_show(notification, NULL);
+          g_object_unref(notification);
+          notify_uninit();
         }
-        else
+        continue;
+      }
+      else if(icapacity < low)
+      {
+        if(notify_init("batteryd"))
         {
-            continue;
+          NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very low",NULL);
+          notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
+          notify_notification_show(notification, NULL);
+          g_object_unref(notification);
+          notify_uninit();
         }
+        cout << "\a";
+        continue;
+      }
+      else
+      {
+        continue;
+      }
     }
-    return 0;
+    else
+    {
+      continue;
+    }
+  }
+  return 0;
 }

@@ -34,6 +34,7 @@
 #include <unistd.h>
 #include <sstream> 
 #include <iostream>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -41,7 +42,7 @@ using namespace std;
 const int repeater = 60;
 const int high = 15;
 const int low = 10;
-const char* statuspath = "/sys/class/power_supply/BAT0/status";
+const char* statuspath = "/sys/class/power_supply/BAT0/statusvfdfd";
 const char* capacitypath = "/sys/class/power_supply/BAT0/capacity";
 //End config section
 
@@ -58,6 +59,22 @@ int main(void)
   while(true)
   {
     sleep(repeater);
+
+    //Lines for filecheck
+    struct stat buffer;
+    if( (stat (statuspath, &buffer) == 0) == 0)
+    {
+      cerr << "no status file" << endl;
+      return 1;
+    }
+    
+    if( (stat (capacitypath, &buffer) == 0) == 0)
+    {
+      cerr << "no capacity file" << endl;
+      return 1;
+    }
+    //End Filecheck 
+
     infile1.open(statuspath);
     getline(infile1,status);
     infile1.close();

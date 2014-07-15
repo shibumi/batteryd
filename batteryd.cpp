@@ -19,7 +19,6 @@
  * Author: Christian Rebischke
  * Email : echo Q2hyaXMuUmViaXNjaGtlQGdtYWlsLmNvbQo= | base64 -d
  * Github: www.github.com/Shibumi
- * GPG: E2C0DC2A
  *
  * How to compile:
  * g++ batteryd.cpp -o batteryd $(pkg-config --cflags --libs libnotify)

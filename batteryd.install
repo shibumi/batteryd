@@ -5,3 +5,8 @@ post_install(){
   echo "[+] Please enable batteryd with 'systemctl enable batteryd.service'"
   echo "[+] You can activate it with 'systemctl start batteryd.service'"
 }
+
+pre_remove(){
+  systemctl stop batteryd
+  systemctl disable batteryd
+}

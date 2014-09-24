@@ -36,3 +36,4 @@ package() {
   cd ${srcdir}/batteryd
   make DESTDIR="$pkgdir" install
 }
+md5sums=('SKIP')

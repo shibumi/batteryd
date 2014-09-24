@@ -30,9 +30,6 @@ package() {
   install -D -m644 "${srcdir}/batteryd/batteryd.service" \
     "${pkgdir}/lib/systemd/system/batteryd.service"
   
-  ln -s "/lib/systemd/system/batteryd.service" \
-    "${pkgdir}/etc/systemd/system/batteryd.service"
-
   install -D -m644 "${srcdir}/batteryd/LICENSE" \
     "${pkgdir}/usr/share/licenses/batteryd/LICENSE"
 

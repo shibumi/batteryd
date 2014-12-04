@@ -37,7 +37,7 @@
 
 
 //Begin config section
-static const int REPEATER = 3;
+static const int REPEATER = 60;
 static const int HIGH = 15;
 static const int LOW = 10;
 static const char *STATUSPATH = "/sys/class/power_supply/BAT1/status";
@@ -94,13 +94,11 @@ main()
     fclose(statusfile);
     if(strcmp(status, DISCHARGING ) == 0)
     {
-      //printf("test\n");
       capacityfile = fopen(CAPACITYPATH, "r");
       fgets(scapacity, FILE_LIMIT, capacityfile);
       fflush(capacityfile);
       fclose(capacityfile);
       icapacity = atoi(scapacity);
-      printf("%d\n", icapacity); //DEBUG
       if(icapacity < HIGH && icapacity > LOW)
       {
         if(notify_init("batteryd"))

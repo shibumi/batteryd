@@ -7,7 +7,7 @@ PREFIX=/usr
 BINDIR=${PREFIX}/bin
 INSTALLDIR=${DESTDIR}${BINDIR}
 
-SOURCE := batteryd.cpp
+SOURCE := batteryd.c
 TARGET := batteryd
 
 all: ${TARGET}

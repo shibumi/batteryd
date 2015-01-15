@@ -1,4 +1,4 @@
-CC=g++
+CC=gcc
 
 LDFLAGS= $(shell pkg-config --cflags --libs libnotify)
 

@@ -44,6 +44,7 @@ static const char *STATUSPATH = "/sys/class/power_supply/BAT1/status";
 static const char *CAPACITYPATH = "/sys/class/power_supply/BAT1/capacity";
 static const int FILE_LIMIT = 12;
 static const char *DISCHARGING = "Discharging";
+static const int TIMEOUT = 30000;
 //End config section
 
 
@@ -105,6 +106,7 @@ main()
         {
           NotifyNotification *notification = notify_notification_new("Caution!!","Battery is LOW", NULL);
           notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
+          notify_notification_set_timeout(notification, TIMEOUT);
           notify_notification_show(notification, NULL);
           g_object_unref(notification);
           notify_uninit();
@@ -116,6 +118,7 @@ main()
         {
           NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very LOW",NULL);
           notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
+          notify_notification_set_timeout(notification, TIMEOUT);
           notify_notification_show(notification, NULL);
           g_object_unref(notification);
           notify_uninit();

@@ -75,9 +75,6 @@ main()
 
   while(TRUE)
   {
-    //This is the sleep intervall for the daemon
-    sleep(REPEATER);
-    
     //Filechecks
     if(!exists(STATUSPATH))
     {
@@ -112,8 +109,8 @@ main()
           g_object_unref(notification);
           notify_uninit();
         }
-      }
-      else if(icapacity < LOW)
+      } 
+      else if(icapacity < LOW) 
       {
         if(notify_init("batteryd"))
         {
@@ -126,5 +123,7 @@ main()
         }
       }
     }
+    //This is the sleep intervall for the daemon
+    sleep(REPEATER);
   }
 }

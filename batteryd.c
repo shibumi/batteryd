@@ -21,7 +21,7 @@
  * Github: www.github.com/Shibumi
  *
  * How to compile:
- * gcc batteryd.cpp -o batteryd $(pkg-config --cflags --libs libnotify)
+ * gcc batteryd.c -o batteryd $(pkg-config --cflags --libs libnotify)
  *
  * vim: set ts=2 sts=2 sw=2 et
  */
@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <libnotify/notify.h>
 #define ERROR_NO_STATUS 2
 #define ERROR_NO_CAPACITY 3

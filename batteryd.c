@@ -51,12 +51,9 @@ static const int TIMEOUT = 30000;
 
 //Function that checks if file exists or not
 
-int 
-exists(const char *fname)
-{
+int exists(const char *fname) {
     FILE *file;
-    if (file = fopen(fname, "r"))
-    {
+    if (file = fopen(fname, "r")) {
         fclose(file);
         return TRUE;
     }
@@ -64,25 +61,20 @@ exists(const char *fname)
 }
 
 
-int 
-main()
-{
+int main() {
   char scapacity[FILE_LIMIT];
   int icapacity = 0;
   char status[FILE_LIMIT];
   FILE *statusfile = NULL;
   FILE *capacityfile = NULL;
 
-  while(TRUE)
-  {
+  while(TRUE) {
     //Filechecks
-    if(!exists(STATUSPATH))
-    {
+    if(!exists(STATUSPATH)) {
       fputs("[-] status file does not exist", stderr);
       return ERROR_NO_STATUS;
     } 
-    if(!exists(CAPACITYPATH))
-    {
+    if(!exists(CAPACITYPATH)) {
       fputs("[-] capacity file does not exist", stderr);
       return ERROR_NO_CAPACITY;
     } 
@@ -91,17 +83,14 @@ main()
     fgets(status, FILE_LIMIT, statusfile );
     fflush(statusfile);
     fclose(statusfile);
-    if(strcmp(status, DISCHARGING ) == 0)
-    {
+    if(strcmp(status, DISCHARGING ) == 0) {
       capacityfile = fopen(CAPACITYPATH, "r");
       fgets(scapacity, FILE_LIMIT, capacityfile);
       fflush(capacityfile);
       fclose(capacityfile);
       icapacity = atoi(scapacity);
-      if(icapacity < HIGH && icapacity > LOW)
-      {
-        if(notify_init("batteryd"))
-        {
+      if(icapacity < HIGH && icapacity > LOW) {
+        if(notify_init("batteryd")) {
           NotifyNotification *notification = notify_notification_new("Caution!!","Battery is LOW", NULL);
           notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
           notify_notification_set_timeout(notification, TIMEOUT);
@@ -109,11 +98,8 @@ main()
           g_object_unref(notification);
           notify_uninit();
         }
-      } 
-      else if(icapacity < LOW) 
-      {
-        if(notify_init("batteryd"))
-        {
+      } else if(icapacity < LOW) {
+        if(notify_init("batteryd")) {
           NotifyNotification *notification = notify_notification_new("Caution!!","Battery is very LOW",NULL);
           notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
           notify_notification_set_timeout(notification, TIMEOUT);

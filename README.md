@@ -8,6 +8,7 @@ A simple and fast battery daemon Linux
 
 **Changelog:**
 
+* Version 1.0.1 : removed exists function
 * Version 1.0.0 : First Release
 
 **How to config:**

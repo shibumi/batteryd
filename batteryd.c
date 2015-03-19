@@ -41,24 +41,12 @@
 static const int REPEATER = 60;
 static const int HIGH = 15;
 static const int LOW = 10;
-static const char *STATUSPATH = "/sys/class/power_supply/BAT1/status";
-static const char *CAPACITYPATH = "/sys/class/power_supply/BAT1/capacity";
+static const char *STATUSPATH = "/sys/class/power_supply/BAT0/status";
+static const char *CAPACITYPATH = "/sys/class/power_supply/BAT0/capacity";
 static const int FILE_LIMIT = 12;
 static const char *DISCHARGING = "Discharging";
 static const int TIMEOUT = 30000;
 //End config section
-
-
-//Function that checks if file exists or not
-
-int exists(const char *fname) {
-    FILE *file;
-    if (file = fopen(fname, "r")) {
-        fclose(file);
-        return TRUE;
-    }
-    return FALSE;
-}
 
 
 int main() {
@@ -70,11 +58,11 @@ int main() {
 
   while(TRUE) {
     //Filechecks
-    if(!exists(STATUSPATH)) {
+    if(access(STATUSPATH, R_OK)) {
       fputs("[-] status file does not exist", stderr);
       return ERROR_NO_STATUS;
     } 
-    if(!exists(CAPACITYPATH)) {
+    if(access(CAPACITYPATH, R_OK)) {
       fputs("[-] capacity file does not exist", stderr);
       return ERROR_NO_CAPACITY;
     } 

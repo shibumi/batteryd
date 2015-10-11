@@ -28,7 +28,7 @@ package() {
   mkdir -p "${pkgdir}/etc/systemd/system/" 
   
   install -D -m644 "${srcdir}/batteryd/batteryd.service" \
-    "${pkgdir}/lib/systemd/system/batteryd.service"
+    "${pkgdir}/usr/lib/systemd/system/batteryd.service"
   
   install -D -m644 "${srcdir}/batteryd/LICENSE" \
     "${pkgdir}/usr/share/licenses/batteryd/LICENSE"
